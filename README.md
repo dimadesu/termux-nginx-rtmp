@@ -8,6 +8,10 @@ This is an `nginx` build for Termux that includes `nginx-rtmp-module`.
 + [sdcard and usb images](https://github.com/moo-the-cow/Streaming-Images): for jetson nano and orange pi 5 at the moment
 
 ## Pre-Requirements
+
+```sh
+pkg install root-repo
+```
 + termux from f-droid repo (google play is outdated)
 + termux-services
 + openssl-1.1 (legacy)
