@@ -26,7 +26,7 @@ ln -s $PREFIX/lib/openssl-1.1/libcrypto.so.1.1 $PREFIX/lib/libcrypto.so.1.1
 
 ```sh
 apt remove nginx # remove any existing nginx installation.
-echo "deb [trusted=yes] https://NeepOwO.github.io/termux-nginx-rtmp/ termux extras" > $PREFIX/etc/apt/sources.list.d/nginx-rtmp.list
+echo "deb [trusted=yes] https://moo-the-cow.github.io/termux-nginx-rtmp/ termux extras" > $PREFIX/etc/apt/sources.list.d/nginx-rtmp.list
 apt update
 apt install nginx-rtmp
 ```
