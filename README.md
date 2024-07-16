@@ -2,11 +2,6 @@
 
 This is an `nginx` build for Termux that includes `nginx-rtmp-module`.
 
-## you might also wanna check out related projects:
-+ [turorial](https://github.com/moo-the-cow/streaming-tutorial): for jetson nano and orange pi 5
-+ [moobs-studio](https://github.com/moo-the-cow/moobs-studio): Docker linux container for OBS Studio (nvidia GPU enabled) for cloud and selfhosting
-+ [sdcard and usb images](https://github.com/moo-the-cow/Streaming-Images): for jetson nano and orange pi 5 at the moment
-
 ## Pre-Requirements
 
 ```sh
@@ -26,8 +21,8 @@ ln -s $PREFIX/lib/openssl-1.1/libcrypto.so.1.1 $PREFIX/lib/libcrypto.so.1.1
 
 ```sh
 apt remove nginx # remove any existing nginx installation.
-echo "deb [trusted=yes] https://moo-the-cow.github.io/termux-nginx-rtmp/ termux extras" > $PREFIX/etc/apt/sources.list.d/nginx-rtmp.list
-apt update
+echo "deb https://muxable.github.io/termux-nginx-rtmp/ termux extras" > $PREFIX/etc/apt/sources.list.d/nginx-rtmp.list
+apt update --allow-insecure-repositories
 apt install nginx-rtmp
 ```
 
@@ -37,11 +32,10 @@ curl https://raw.githubusercontent.com/NeepOwO/termux-nginx-rtmp/main/nginx-cust
 envsubst < $PREFIX/etc/nginx/nginx.conf.template > $PREFIX/etc/nginx/nginx.conf
 mkdir -p $PREFIX/www/static/ && curl https://raw.githubusercontent.com/NeepOwO/termux-nginx-rtmp/main/stat.xsl > $PREFIX/www/static/stat.xsl
 ```
-## Restart phone
+# Restart phone
 
 ## Enable and Start Service
 ```sh
 sv-enable nginx
 sv up nginx
 ```
-Hint: first time I had to restart the phone and then it worked
