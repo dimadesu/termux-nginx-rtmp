@@ -38,4 +38,38 @@ mkdir -p $PREFIX/www/static/ && curl https://raw.githubusercontent.com/NeepOwO/t
 ```sh
 sv-enable nginx
 sv up nginx
+nginx
 ```
+## test link
+```sh
+0.0.0.0:8080/stat 
+```
+# install ffmpeg
+```sh
+apt install ffmpeg
+apt install libexpat
+```
+# Start stream
+## check ip
+```sh
+ifconfig
+```
+## streamlink
+```sh
+rtmp://ip:1935/publish/live
+```
+## ffmpeg start string
+
+without coding to HEVC
+```sh
+ffmpeg -i rtmp://localhost:1935/publish/live -c:v copy -c:a copy -f mpegts srt://yourip:yourport?mode=caller 
+```
+
+with coding to HEVC
+```sh
+ffmpeg -i rtmp://localhost:1935/publish/live -c:v libx265 -crf 18 -c:a copy -f mpegts srt://yourip:yourport?mode=caller 
+```
+
+
+
+
