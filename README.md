@@ -69,6 +69,29 @@ with coding to HEVC
 ```sh
 ffmpeg -i rtmp://localhost:1935/publish/live -c:v libx265 -crf 18 -c:a copy -f mpegts srt://yourip:yourport?mode=caller 
 ```
+# auto ffmpeg restart script
+
+create file
+```sh
+nano ffmpeg.sh
+```
+
+paste script
+```sh
+while true; do
+ffmpeg -i rtmp://localhost:1935/publish/live -c:v copy -c:a copy -f mpegts srt://109.174.24.38:61234?mode=caller
+echo "FFmpeg завершился. Перезапуск через 5 секунд..."
+sleep 5
+done
+```
+give rights
+```sh
+chmod +x ffmpeg.sh
+```
+start script
+```sh
+./ffmpeg.sh
+```
 
 
 
