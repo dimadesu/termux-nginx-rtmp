@@ -79,7 +79,7 @@ nano ffmpeg.sh
 paste script
 ```sh
 while true; do
-ffmpeg -i rtmp://localhost:1935/publish/live -c:v copy -c:a copy -f mpegts srt://109.174.24.38:61234?mode=caller
+ffmpeg -i rtmp://localhost:1935/publish/live -c:v copy -c:a copy -f mpegts srt://ip:port?mode=caller
 echo "FFmpeg завершился. Перезапуск через 5 секунд..."
 sleep 5
 done
