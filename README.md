@@ -2,7 +2,7 @@
 
 This is `nginx` build for [Termux](https://termux.dev/en/) that includes `nginx-rtmp-module`.
 
-_Plus._
+_Plus ffmpeg scripts._
 
 There will be additional instructions below on how to use ffmpeg on Android in Termux to read RTMP stream and push to SRT ingest.
 
@@ -14,17 +14,17 @@ Natually, it can read RTMP and push to RTMP ingest.
 
 This allows running RTMP server on Android using Termux.
 
-All of this can be useful for re-broadcasting RTMP stream from action camera using Android phone.
+Can be useful for re-broadcasting RTMP stream from action camera using Android phone.
 
 Ideally, distance between action camera and the phone should be short to prevent radio interference. SRT seems to work better when sending stream over long distance.
 
 Choose a reasonable bitrate to send from your action camera as ffmpeg will keep the same bitrate and try to send it over network.
 
+At least with my phone (Samsung S20 FE) I've noticed the stream is more stable and resilient to stutter and RF interference when streaming phone VS. action cameras (tested with Dji Osmo Action 4 and GoPro 10).
+
 ## Prerequisites
 
-Install [Termux from F-Droid repo](https://github.com/termux/termux-app?tab=readme-ov-file#f-droid).
-
-Google Play version is outdated.
+Install [Termux from F-Droid repo](https://github.com/termux/termux-app?tab=readme-ov-file#f-droid). Google Play version is outdated.
 
 Google is not too keen to allow all this Termux stuff for security reasons, I imagine, as anyone can copy-paste scripts from the Internet w/o knowing what they do.
 
