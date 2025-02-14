@@ -18,7 +18,7 @@ Ideally, distance between action camera and the phone should be short to prevent
 
 Choose a reasonable bitrate to send from your action camera as ffmpeg will keep the same bitrate and try to send it over network.
 
-At least with my phone (Samsung S20 FE) I've noticed the stream is more stable and resilient to stutter and RF interference when streaming phone VS. action cameras (tested with Dji Osmo Action 4 and GoPro 10).
+At least with my phone (Samsung S20 FE) I've noticed the stream is more stable and resilient to stutter and RF interference when streaming from the phone VS. action cameras (tested with Dji Osmo Action 4 and GoPro 10).
 
 ## Prerequisites
 
@@ -54,7 +54,7 @@ apt update --allow-insecure-repositories
 apt install nginx-rtmp
 ```
 
-## Tweak `nginx.conf`
+## Configure `nginx.conf`
 
 These 2 lines create Nginx config and replace one path with $PREFIX var.
 
@@ -116,19 +116,20 @@ rtmp://IP_OF_YOUR_PHONE:1935/publish/live
 
 ## Run ffmpeg
 
-RTMP to SRT relay w/o trasncoding to HEVC.
+Pull RTMP stream from Nginx, push to SRT ingest (w/o trasncoding to HEVC).
 
 ```sh
 ffmpeg -i rtmp://localhost:1935/publish/live -c:v copy -c:a copy -f mpegts srt://IP_OF_YOUR_SRT_SERVER:PORT_NUMBER?mode=caller
 ```
 
-If your phone is powerful enough you can try transcoding video to HEVC.
+If your phone is powerful you can try transcoding video to HEVC.
+Pull RTMP stream from Nginx, encode as HEVC and push to SRT ingest.
 
 ```sh
 ffmpeg -i rtmp://localhost:1935/publish/live -c:v libx265 -crf 18 -c:a copy -f mpegts srt://IP_OF_YOUR_SRT_SERVER:PORT_NUMBER?mode=caller
 ```
 
-RTMP to RTMP relay.
+Pull RTMP stream from Nginx, push to RTMP ingest.
 
 ```sh
 ffmpeg -i rtmp://localhost:1935/publish/live -c:v copy -c:a copy -f flv rtmp://IP_OF_YOUR_SRT_SERVER:1935/publish/live
