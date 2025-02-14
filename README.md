@@ -10,15 +10,19 @@ Natually, it can read RTMP and push to RTMP ingest.
 
 ## What is this for?
 
-This allows running RTMP server on Android using Termux.
+**This allows running RTMP server on Android using Termux and rebroadcasting RTMP as SRT.**
 
-This can be useful for re-broadcasting RTMP stream from action camera using Android phone to change RTMP into SRT.
+This can be useful for outdoors streaming with action cameras as for now they only support streaming over RTMP. SRT seems to work better when sending stream over long distances.
 
-Ideally, distance between action camera and the phone should be short to prevent radio interference. SRT seems to work better when sending stream over long distance.
+In a more complex IRL setups this allows sending to self hosted SRT server.
 
-Choose a reasonable bitrate to send from your action camera as ffmpeg will keep the same bitrate and try to send it over network.
+I'm testing using this to make connection between action camera and Belabox ingest more resilient to stutter as it's the weakest link in my setup.
+
+Ideally, distance between action camera and the phone should be fairly short to prevent radio interference.
 
 At least with my phone (Samsung S20 FE) I've noticed the stream is more stable and resilient to stutter and RF interference when streaming from the phone VS. action cameras (tested with Dji Osmo Action 4 and GoPro 10).
+
+Choose a reasonable bitrate to send from your action camera as ffmpeg will keep the same bitrate and try to send it over network.
 
 ## Prerequisites
 
