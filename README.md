@@ -26,6 +26,14 @@ At least with my phone (Samsung S20 FE) I've noticed the stream is more stable a
 
 Choose a reasonable bitrate to send from your action camera as ffmpeg will keep the same bitrate and try to send it over network.
 
+## Disclaimer. This isn't mine
+
+It's based on this guy's fork https://github.com/NeepOwO/termux-nginx-rtmp and [his video](https://www.youtube.com/watch?v=977_AtGC2sQ) (in Russian).
+
+I just cleaned it up and provided better explanations. Also, I added extra comments when I was trying to make sense of it and understand how it works.
+
+Hopefully, we can further improve upon this and polish it. I wonder if we can swap Nginx for [Node Media Server](https://www.npmjs.com/package/node-media-server) as Node is [supported by Termux](https://wiki.termux.com/index.php?title=Node.js).
+
 ## Prerequisites
 
 Install [Termux from F-Droid repo](https://github.com/termux/termux-app?tab=readme-ov-file#f-droid). Google Play version is outdated.
