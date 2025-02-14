@@ -18,7 +18,7 @@ In a more complex IRL setups this allows sending to self hosted SRT server.
 
 I'm testing using this to make connection between action camera and [Belabox](https://belabox.net/) ingest more resilient to stutter as it's the weakest link in my setup.
 
-Btw check out my unofficial SRT ingest for Belabox [https://github.com/dimadesu/srt-ingest-for-belabox](https://github.com/dimadesu/srt-ingest-for-belabox) as it can work with this too. You can feed your SRT stream phone a phone into SRT ingest of Belabox.
+Btw check out my unofficial SRT ingest for Belabox [https://github.com/dimadesu/srt-ingest-for-belabox](https://github.com/dimadesu/srt-ingest-for-belabox) as it can work with this too. You can feed your SRT stream from a phone into SRT ingest of Belabox.
 
 Ideally, distance between action camera and the phone should be fairly short to prevent radio interference.
 
