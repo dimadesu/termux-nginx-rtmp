@@ -12,7 +12,7 @@ Natually, it can read RTMP and push to RTMP ingest too.
 
 **This allows running RTMP server on Android using Termux and rebroadcasting RTMP as SRT.**
 
-This can be useful for outdoors streaming with action cameras as for now they only support streaming over RTMP. SRT seems to work better when sending stream over long distances.
+This can be useful when streaming outdoors with action cameras as for now they only support streaming over RTMP. SRT seems to work better when sending stream over long distances.
 
 In a more complex IRL setups this allows sending to self hosted SRT server.
 
