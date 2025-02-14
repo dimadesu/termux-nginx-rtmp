@@ -1,12 +1,4 @@
-# termux-nginx-rtmp
-
-This is `nginx` build for [Termux](https://termux.dev/en/) that includes `nginx-rtmp-module`. _Plus_ ffmpeg scripts.
-
-There will be additional instructions below on how to use ffmpeg on Android in Termux to read RTMP stream and push to SRT ingest.
-
-It is also possible to transcode into HEVC.
-
-Natually, it can read RTMP and push to RTMP ingest too.
+# Rebroadcast RTMP stream from action camera as SRT using Android phone
 
 ## What is this for?
 
@@ -14,11 +6,11 @@ Natually, it can read RTMP and push to RTMP ingest too.
 
 This can be useful when streaming outdoors with action cameras as for now they only support streaming over RTMP. SRT seems to work better when sending stream over long distances.
 
-In a more complex IRL setups this allows sending to self hosted SRT server.
+In a more complex streaming setups this allows sending to self hosted SRT server.
 
 I'm testing using this to make connection between action camera and [Belabox](https://belabox.net/) ingest more resilient to stutter as it's the weakest link in my setup.
 
-Btw check out my unofficial SRT ingest for Belabox [https://github.com/dimadesu/srt-ingest-for-belabox](https://github.com/dimadesu/srt-ingest-for-belabox) as it can work with this too. You can feed your SRT stream from a phone into SRT ingest of Belabox.
+Btw check out my unofficial SRT ingest for Belabox [https://github.com/dimadesu/srt-ingest-for-belabox](https://github.com/dimadesu/srt-ingest-for-belabox) as it can work with this too. You can feed your SRT stream from a phone into SRT ingest of Belabox. Rebroadcasting RTMP as RTMP via Android phone seems to make signal more stable too.
 
 Ideally, distance between action camera and the phone should be fairly short to prevent radio interference.
 
@@ -33,6 +25,16 @@ It's based on this guy's fork https://github.com/NeepOwO/termux-nginx-rtmp and [
 I just cleaned it up and provided better explanations. Also, I added extra comments when I was trying to make sense of it and understand how it works.
 
 Hopefully, we can further improve upon this and polish it. I wonder if we can swap Nginx for [Node Media Server](https://www.npmjs.com/package/node-media-server) as Node is [supported by Termux](https://wiki.termux.com/index.php?title=Node.js).
+
+# termux-nginx-rtmp
+
+This is `nginx` build for [Termux](https://termux.dev/en/) that includes `nginx-rtmp-module`. _Plus_ ffmpeg scripts.
+
+There will be additional instructions below on how to use ffmpeg on Android in Termux to read RTMP stream and push to SRT ingest.
+
+It is also possible to transcode into HEVC.
+
+Natually, it can read RTMP and push to RTMP ingest too.
 
 ## Prerequisites
 
