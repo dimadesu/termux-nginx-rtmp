@@ -4,7 +4,7 @@ This is `nginx` build for [Termux](https://termux.dev/en/) that includes `nginx-
 
 _Plus._
 
-There will be additional instructions below on how to use ffmpeg with it to create RTMP to SRT relay.
+There will be additional instructions below on how to use ffmpeg with it to create RTMP to RTMP or RTMP to SRT relay.
 
 It is also possible to transcode into HEVC.
 
@@ -19,15 +19,15 @@ Google is not too keen to allow all this Termux stuff for security reasons, I im
 But don't worry I worked out what most these scripts and commands do and they are fine.
 
 ```sh
-# TODO: Not too sure why we need root repo, is this right?
+# TODO: Why do we need root-repo? In the Termux docs it says it's for rooted phones. Instructions below do not require rooted phone
 pkg install root-repo
 ```
 
 ## Install libraries
 
-- termux-services
-- openssl-1.1 (legacy) // TODO: Why do we need this legacy version?
-- gettext - to inject env variables into Nginx config
+- `termux-services` to run Nginx as a service on boot
+- `openssl-1.1` (legacy) // TODO: Is this needed for ffmpeg? Why do we need legacy version?
+- `gettext` - injects environmental variable $PREFIX into Nginx config for path to XSL template
 
 ```sh
 apt install termux-services openssl-1.1 gettext
@@ -38,30 +38,26 @@ ln -s $PREFIX/lib/openssl-1.1/libcrypto.so.1.1 $PREFIX/lib/libcrypto.so.1.1
 ## Install Nginx with RTMP module
 
 ```sh
-apt remove nginx # remove any existing nginx installation.
-
+apt remove nginx # remove any existing nginx installation
 echo "deb https://muxable.github.io/termux-nginx-rtmp/ termux extras" > $PREFIX/etc/apt/sources.list.d/nginx-rtmp.list
-
 apt update --allow-insecure-repositories
-
 apt install nginx-rtmp
 ```
 
 ## Tweak `nginx.conf`
 
+These 2 lines create Nginx config and replace one path with $PREFIX var.
+
 ```sh
-# These 2 lines create Nginx config and replace one path with $PREFIX var
-
 curl https://raw.githubusercontent.com/dimadesu/termux-nginx-rtmp/main/nginx-custom.conf > $PREFIX/etc/nginx/nginx.conf.template
-
 envsubst < $PREFIX/etc/nginx/nginx.conf.template > $PREFIX/etc/nginx/nginx.conf
-
-
-# Create stats XSL template
-mkdir -p $PREFIX/www/static/ && curl https://raw.githubusercontent.com/dimadesu/termux-nginx-rtmp/main/stat.xsl > $PREFIX/www/static/stat.xsl
 ```
 
-# --- Restart the phone ---
+Create Nginx RTMP stats XSL template.
+
+mkdir -p $PREFIX/www/static/ && curl https://raw.githubusercontent.com/dimadesu/termux-nginx-rtmp/main/stat.xsl > $PREFIX/www/static/stat.xsl
+
+## Restart the phone
 
 ## Enable and Start Service
 
@@ -83,7 +79,7 @@ sv status nginx
 
 [http://0.0.0.0:8080/stat](http://0.0.0.0:8080/stat)
 
-# --- ffmpeg stuff ---
+# ffmpeg
 
 It will read what is pushed into RTMP ingest of Nginx (pull RTMP) and push SRT where you need it.
 
@@ -110,7 +106,13 @@ rtmp://IP_OF_YOUR_PHONE:1935/publish/live
 
 ## Run ffmpeg
 
-Relay w/o trasncoding to HEVC.
+RTMP to RTMP relay.
+
+```sh
+ffmpeg -i rtmp://localhost:1935/publish/live -c:v copy -c:a copy -f flv rtmp://IP_OF_YOUR_SRT_SERVER:1935/publish/live
+```
+
+SRT to RTMP relay w/o trasncoding to HEVC.
 
 ```sh
 ffmpeg -i rtmp://localhost:1935/publish/live -c:v copy -c:a copy -f mpegts srt://IP_OF_YOUR_SRT_SERVER:PORT_NUMBER?mode=caller
