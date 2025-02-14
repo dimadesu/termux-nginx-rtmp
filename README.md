@@ -1,8 +1,6 @@
 # termux-nginx-rtmp
 
-This is `nginx` build for [Termux](https://termux.dev/en/) that includes `nginx-rtmp-module`.
-
-_Plus ffmpeg scripts._
+This is `nginx` build for [Termux](https://termux.dev/en/) that includes `nginx-rtmp-module`. _Plus_ ffmpeg scripts.
 
 There will be additional instructions below on how to use ffmpeg on Android in Termux to read RTMP stream and push to SRT ingest.
 
@@ -118,13 +116,7 @@ rtmp://IP_OF_YOUR_PHONE:1935/publish/live
 
 ## Run ffmpeg
 
-RTMP to RTMP relay.
-
-```sh
-ffmpeg -i rtmp://localhost:1935/publish/live -c:v copy -c:a copy -f flv rtmp://IP_OF_YOUR_SRT_SERVER:1935/publish/live
-```
-
-SRT to RTMP relay w/o trasncoding to HEVC.
+RTMP to SRT relay w/o trasncoding to HEVC.
 
 ```sh
 ffmpeg -i rtmp://localhost:1935/publish/live -c:v copy -c:a copy -f mpegts srt://IP_OF_YOUR_SRT_SERVER:PORT_NUMBER?mode=caller
@@ -134,6 +126,12 @@ If your phone is powerful enough you can try transcoding video to HEVC.
 
 ```sh
 ffmpeg -i rtmp://localhost:1935/publish/live -c:v libx265 -crf 18 -c:a copy -f mpegts srt://IP_OF_YOUR_SRT_SERVER:PORT_NUMBER?mode=caller
+```
+
+RTMP to RTMP relay.
+
+```sh
+ffmpeg -i rtmp://localhost:1935/publish/live -c:v copy -c:a copy -f flv rtmp://IP_OF_YOUR_SRT_SERVER:1935/publish/live
 ```
 
 ## Script that can restart ffmpeg if it exits/errors out
