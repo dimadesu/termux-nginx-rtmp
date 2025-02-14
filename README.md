@@ -4,11 +4,23 @@ This is `nginx` build for [Termux](https://termux.dev/en/) that includes `nginx-
 
 _Plus._
 
-There will be additional instructions below on how to use ffmpeg with it to create RTMP to RTMP or RTMP to SRT relay.
+There will be additional instructions below on how to use ffmpeg on Android in Termux to read RTMP stream and push to SRT ingest.
 
 It is also possible to transcode into HEVC.
 
-## Pre-Requirements
+Natually, it can read RTMP and push to RTMP ingest.
+
+## What is this for?
+
+This allows running RTMP server on Android using Termux.
+
+All of this can be useful for re-broadcasting RTMP stream from action camera using Android phone.
+
+Ideally, distance between action camera and the phone should be short to prevent radio interference. SRT seems to work better when sending stream over long distance.
+
+Choose a reasonable bitrate to send from your action camera as ffmpeg will keep the same bitrate and try to send it over network.
+
+## Prerequisites
 
 Install [Termux from F-Droid repo](https://github.com/termux/termux-app?tab=readme-ov-file#f-droid).
 
@@ -59,7 +71,7 @@ mkdir -p $PREFIX/www/static/ && curl https://raw.githubusercontent.com/dimadesu/
 
 ## Restart the phone
 
-## Enable and Start Service
+## Running as service
 
 ```sh
 # Configure service to start on boot
@@ -75,7 +87,7 @@ nginx
 sv status nginx
 ```
 
-## Open Nginx stats in the browser
+## Test by opening Nginx stats in the browser
 
 [http://0.0.0.0:8080/stat](http://0.0.0.0:8080/stat)
 
@@ -151,7 +163,3 @@ Run script.
 ```sh
 ./ffmpeg.sh
 ```
-
-
-
-
