@@ -28,7 +28,7 @@ apt install nginx-rtmp
 
 # Tweak nginx.conf
 ```sh
-curl https://raw.githubusercontent.com/NeepOwO/termux-nginx-rtmp/main/nginx-custom.conf > $PREFIX/etc/nginx/nginx.conf.template
+curl https://raw.githubusercontent.com/dimadesu/termux-nginx-rtmp/main/nginx-custom.conf > $PREFIX/etc/nginx/nginx.conf.template
 envsubst < $PREFIX/etc/nginx/nginx.conf.template > $PREFIX/etc/nginx/nginx.conf
 mkdir -p $PREFIX/www/static/ && curl https://raw.githubusercontent.com/NeepOwO/termux-nginx-rtmp/main/stat.xsl > $PREFIX/www/static/stat.xsl
 ```
@@ -80,7 +80,7 @@ paste script
 ```sh
 while true; do
 ffmpeg -i rtmp://localhost:1935/publish/live -c:v copy -c:a copy -f mpegts srt://ip:port?mode=caller
-echo "FFmpeg завершился. Перезапуск через 5 секунд..."
+echo "FFmpeg exited. Restart in 5 seconds..."
 sleep 5
 done
 ```
