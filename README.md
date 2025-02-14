@@ -6,7 +6,7 @@ There will be additional instructions below on how to use ffmpeg on Android in T
 
 It is also possible to transcode into HEVC.
 
-Natually, it can read RTMP and push to RTMP ingest.
+Natually, it can read RTMP and push to RTMP ingest too.
 
 ## What is this for?
 
