@@ -12,7 +12,7 @@ Natually, it can read RTMP and push to RTMP ingest.
 
 This allows running RTMP server on Android using Termux.
 
-Can be useful for re-broadcasting RTMP stream from action camera using Android phone.
+This can be useful for re-broadcasting RTMP stream from action camera using Android phone to change RTMP into SRT.
 
 Ideally, distance between action camera and the phone should be short to prevent radio interference. SRT seems to work better when sending stream over long distance.
 
