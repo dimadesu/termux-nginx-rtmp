@@ -81,7 +81,9 @@ envsubst < $PREFIX/etc/nginx/nginx.conf.template > $PREFIX/etc/nginx/nginx.conf
 
 Create Nginx RTMP stats XSL template.
 
+```
 mkdir -p $PREFIX/www/static/ && curl https://raw.githubusercontent.com/dimadesu/termux-nginx-rtmp/main/stat.xsl > $PREFIX/www/static/stat.xsl
+```
 
 ## Restart the phone
 
@@ -107,7 +109,7 @@ sv status nginx
 
 # ffmpeg
 
-It will read what is pushed into RTMP ingest of Nginx (pull RTMP) and push SRT where you need it.
+It will read what is pushed into RTMP ingest of Nginx (pull RTMP) and push to SRT ingest.
 
 ## Install ffmpeg
 
@@ -118,7 +120,7 @@ apt install ffmpeg
 apt install libexpat
 ```
 
-## Check IP
+## Find out your phone's IP address
 
 ```sh
 ifconfig
