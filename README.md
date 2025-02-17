@@ -46,13 +46,14 @@ But don't worry I worked out what most these scripts and commands do and they ar
 
 ```sh
 # TODO: Why do we need root-repo? In the Termux docs it says it's for rooted phones. Instructions below do not require rooted phone
+# TODO. Try running w/o this
 pkg install root-repo
 ```
 
 ## Install libraries
 
 - `termux-services` to run Nginx as a service on boot
-- `openssl-1.1` (legacy) // TODO: Is this needed for ffmpeg? Why do we need legacy version?
+- `openssl-1.1` (legacy) // TODO: This seems to be needed if nginx will use HTTPS. Why do we need legacy version?
 - `gettext` - injects environmental variable $PREFIX into Nginx config for path to XSL template
 
 ```sh
@@ -95,9 +96,6 @@ sv-enable nginx
 
 # Start service now
 sv up nginx
-
-# Start nginx now
-nginx
 
 # Check if service is running
 sv status nginx
