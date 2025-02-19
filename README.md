@@ -120,9 +120,13 @@ apt install libexpat
 
 ## Find out your phone's IP address
 
+Most likely you'll be running hotspot on your phone, so run this command first
+
 ```sh
 ifconfig
 ```
+
+and look for IP under `swlan0` > `inet`.
 
 ## Configure your video encoder to push to RTMP ingest of Nginx
 
@@ -132,26 +136,31 @@ rtmp://IP_OF_YOUR_PHONE:1935/publish/live
 
 ## Run ffmpeg
 
-Pull RTMP stream from Nginx, push to SRT ingest (w/o trasncoding to HEVC).
+Pick one of the options bellow.
 
-```sh
-ffmpeg -i rtmp://localhost:1935/publish/live -c:v copy -c:a copy -f mpegts srt://IP_OF_YOUR_SRT_SERVER:PORT_NUMBER?mode=caller
-```
+- Option 1. Pull RTMP stream from Nginx, push to SRT ingest (w/o trasncoding to HEVC).
 
-If your phone is powerful you can try transcoding video to HEVC.
-Pull RTMP stream from Nginx, encode as HEVC and push to SRT ingest.
+  ```sh
+  ffmpeg -i rtmp://localhost:1935/publish/live -c:v copy -c:a copy -f mpegts srt://IP_OF_YOUR_SRT_SERVER:PORT_NUMBER?mode=caller
+  ```
 
-```sh
-ffmpeg -i rtmp://localhost:1935/publish/live -c:v libx265 -crf 18 -c:a copy -f mpegts srt://IP_OF_YOUR_SRT_SERVER:PORT_NUMBER?mode=caller
-```
+- Option 2. Pull RTMP stream from Nginx, encode as HEVC and push to SRT ingest.
 
-Pull RTMP stream from Nginx, push to RTMP ingest.
+  If your phone is powerful you can try transcoding video to HEVC.
+  
+  ```sh
+  ffmpeg -i rtmp://localhost:1935/publish/live -c:v libx265 -crf 18 -c:a copy -f mpegts srt://IP_OF_YOUR_SRT_SERVER:PORT_NUMBER?mode=caller
+  ```
 
-```sh
-ffmpeg -i rtmp://localhost:1935/publish/live -c:v copy -c:a copy -f flv rtmp://IP_OF_YOUR_SRT_SERVER:1935/publish/live
-```
+- Option 3. Pull RTMP stream from Nginx, push to RTMP ingest.
 
-## Script that can restart ffmpeg if it exits/errors out
+  ```sh
+  ffmpeg -i rtmp://localhost:1935/publish/live -c:v copy -c:a copy -f flv rtmp://IP_OF_YOUR_SRT_SERVER:1935/publish/live
+  ```
+
+## Script that can restart ffmpeg if it exits or errors out
+
+For convenience you can create a script and manually run it.
 
 ```sh
 nano ffmpeg.sh
