@@ -22,9 +22,9 @@ Choose a reasonable bitrate to send from your action camera as ffmpeg will keep 
 
 It's based on this guy's fork https://github.com/NeepOwO/termux-nginx-rtmp and [his video](https://www.youtube.com/watch?v=977_AtGC2sQ) (in Russian).
 
-I just cleaned it up and provided better explanations. Also, I added extra comments when I was trying to make sense of it and understand how it works.
+I just cleaned up README and provided detailed explanations. Also, I also added extra TODO comments when I was trying to make sense of it and understand how it works.
 
-Hopefully, we can further improve upon this and polish it. I wonder if we can swap Nginx for [Node Media Server](https://www.npmjs.com/package/node-media-server) as Node is [supported by Termux](https://wiki.termux.com/index.php?title=Node.js).
+Hopefully, we can further improve upon this and polish it. I wonder if we can swap Nginx for [Node Media Server](https://www.npmjs.com/package/node-media-server) as Node is [supported by Termux](https://wiki.termux.com/index.php?title=Node.js) or smth like MediaMTX.
 
 # termux-nginx-rtmp
 
@@ -32,9 +32,9 @@ This is `nginx` build for [Termux](https://termux.dev/en/) that includes `nginx-
 
 There will be additional instructions below on how to use ffmpeg on Android in Termux to read RTMP stream and push to SRT ingest.
 
-It is also possible to transcode into HEVC.
+It is also possible to transcode into HEVC (needs more testing).
 
-Natually, it can read RTMP and push to RTMP ingest too.
+Natually, it can read RTMP and push to RTMP ingest too. This can be usefull too for some cases detailed below.
 
 ## Prerequisites
 
@@ -46,14 +46,14 @@ But don't worry I worked out what most these scripts and commands do and they ar
 
 ```sh
 # TODO: Why do we need root-repo? In the Termux docs it says it's for rooted phones. Instructions below do not require rooted phone
-# TODO. Try running w/o this
+# TODO: Try running w/o this
 pkg install root-repo
 ```
 
 ## Install libraries
 
 - `termux-services` to run Nginx as a service on boot
-- `openssl-1.1` (legacy) // TODO: This seems to be needed if nginx will use HTTPS. Why do we need legacy version?
+- `openssl-1.1` (legacy) // TODO: Why do we need this? Why legacy version? Can we get rid of this? This seems to be needed if Nginx will use HTTPS TBC
 - `gettext` - injects environmental variable $PREFIX into Nginx config for path to XSL template
 
 ```sh
@@ -103,18 +103,27 @@ sv status nginx
 
 ## Test by opening Nginx stats in the browser
 
+// TODO: Can this be changed to `localhost`?
+
 [http://0.0.0.0:8080/stat](http://0.0.0.0:8080/stat)
+
 
 # ffmpeg
 
-It will read what is pushed into RTMP ingest of Nginx (pull RTMP) and push to SRT ingest.
+It can read what is pushed into RTMP ingest of Nginx (pull RTMP) and push to SRT or RTMP ingest.
 
 ## Install ffmpeg
 
 ```sh
 apt install ffmpeg
+```
 
-# I think this one is to help parse XML stats of Nginx
+### Install libexpat
+
+I think this one is to help parse XML stats of Nginx.
+
+```
+# TODO: Try running w/o it. I think it's not used
 apt install libexpat
 ```
 
@@ -128,7 +137,7 @@ ifconfig
 
 and look for IP under `swlan0` > `inet`.
 
-## Configure your video encoder to push to RTMP ingest of Nginx
+## Configure your camera / video encoder to push to RTMP ingest of Nginx
 
 ```sh
 rtmp://IP_OF_YOUR_PHONE:1935/publish/live
@@ -138,13 +147,13 @@ rtmp://IP_OF_YOUR_PHONE:1935/publish/live
 
 Pick one of the options bellow.
 
-- Option 1. Pull RTMP stream from Nginx, push to SRT ingest (w/o trasncoding to HEVC).
+- Option 1. **RTMP-SRT H264.** Pull RTMP stream from Nginx, push to SRT ingest (w/o trasncoding to HEVC).
 
   ```sh
   ffmpeg -i rtmp://localhost:1935/publish/live -c:v copy -c:a copy -f mpegts srt://IP_OF_YOUR_SRT_SERVER:PORT_NUMBER?mode=caller
   ```
 
-- Option 2. Pull RTMP stream from Nginx, encode as HEVC and push to SRT ingest.
+- Option 2. **RTMP-SRT HEVC.** Pull RTMP stream from Nginx, encode as HEVC and push to SRT ingest.
 
   If your phone is powerful you can try transcoding video to HEVC.
   
@@ -152,7 +161,7 @@ Pick one of the options bellow.
   ffmpeg -i rtmp://localhost:1935/publish/live -c:v libx265 -crf 18 -c:a copy -f mpegts srt://IP_OF_YOUR_SRT_SERVER:PORT_NUMBER?mode=caller
   ```
 
-- Option 3. Pull RTMP stream from Nginx, push to RTMP ingest.
+- Option 3. **RTMP-RTMP H264.** Pull RTMP stream from Nginx, push to RTMP ingest.
 
   ```sh
   ffmpeg -i rtmp://localhost:1935/publish/live -c:v copy -c:a copy -f flv rtmp://IP_OF_YOUR_SRT_SERVER:1935/publish/live
@@ -166,7 +175,7 @@ For convenience you can create a script and manually run it.
 nano ffmpeg.sh
 ```
 
-Paste script
+Paste script.
 
 ```sh
 while true; do
@@ -176,7 +185,7 @@ sleep 5
 done
 ```
 
-Give executable permission.
+Give executable permissions.
 
 ```sh
 chmod +x ffmpeg.sh
