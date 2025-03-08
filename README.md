@@ -1,3 +1,5 @@
+This doc is for Nginx + ffmpeg. For MediaMTX + IRL Pro please go [here](https://github.com/dimadesu/android-rtmp-ingest).
+
 # Rebroadcast RTMP stream from action camera as SRT using Android phone
 
 ## What is this for?
