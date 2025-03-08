@@ -163,7 +163,7 @@ Pick one of the options bellow.
   ffmpeg -i rtmp://localhost:1935/publish/live -c:v libx265 -crf 18 -c:a copy -f mpegts srt://IP_OF_YOUR_SRT_SERVER:PORT_NUMBER?mode=caller
   ```
 
-  **I've tested this and the performance is pretty bad.** Better solution is to use Mediacodec to get hardware accelation. Please refer to instructions [here](https://github.com/dimadesu/android-rtmp-ingest).
+  **I've tested this and the performance is pretty bad.** A better solution is to use Mediacodec to get hardware accelation. Please refer to instructions [here](https://github.com/dimadesu/android-rtmp-ingest).
 
 - Option 3. **RTMP-RTMP H264.** Pull RTMP stream from Nginx, push to RTMP ingest.
 
